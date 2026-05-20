@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Olive Kitchen — Fine Dining & Authentic Flavors</title>
+  <meta name="description" content="Experience authentic flavors at The Olive Kitchen. Reserve your table for a memorable dining experience with handcrafted dishes from our award-winning chef.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@300;400;500;600;700&family=Playfair+Display+SC:wght@400;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#DC2626',
+            'primary-light': '#F87171',
+            cta: '#CA8A04',
+            'cta-hover': '#A16207',
+            bg: '#FEF2F2',
+            'bg-alt': '#FFF7ED',
+            text: '#450A0A',
+            'text-light': '#7C2D12',
+          },
+          fontFamily: {
+            heading: ['"Playfair Display SC"', 'serif'],
+            body: ['Karla', 'sans-serif'],
+          },
+          keyframes: {
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(40px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            fadeInLeft: {
+              '0%': { opacity: '0', transform: 'translateX(-40px)' },
+              '100%': { opacity: '1', transform: 'translateX(0)' },
+            },
+            fadeInRight: {
+              '0%': { opacity: '0', transform: 'translateX(40px)' },
+              '100%': { opacity: '1', transform: 'translateX(0)' },
+            },
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            scaleIn: {
+              '0%': { opacity: '0', transform: 'scale(0.9)' },
+              '100%': { opacity: '1', transform: 'scale(1)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            shimmer: {
+              '0%': { backgroundPosition: '-200% 0' },
+              '100%': { backgroundPosition: '200% 0' },
+            },
+            slideDown: {
+              '0%': { opacity: '0', transform: 'translateY(-20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+          },
+          animation: {
+            'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+            'fade-in-left': 'fadeInLeft 0.8s ease-out forwards',
+            'fade-in-right': 'fadeInRight 0.8s ease-out forwards',
+            'fade-in': 'fadeIn 0.6s ease-out forwards',
+            'scale-in': 'scaleIn 0.6s ease-out forwards',
+            'float': 'float 3s ease-in-out infinite',
+            'shimmer': 'shimmer 2s linear infinite',
+            'slide-down': 'slideDown 0.5s ease-out forwards',
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+    .animate-on-scroll { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+    .animate-on-scroll.from-left { transform: translateX(-40px); }
+    .animate-on-scroll.from-right { transform: translateX(40px); }
+    .animate-on-scroll.from-scale { transform: scale(0.9); }
+    .animate-on-scroll.visible { opacity: 1; transform: translateY(0) translateX(0) scale(1); }
+    .stagger-1 { transition-delay: 0.1s; }
+    .stagger-2 { transition-delay: 0.2s; }
+    .stagger-3 { transition-delay: 0.3s; }
+    .stagger-4 { transition-delay: 0.4s; }
+    .stagger-5 { transition-delay: 0.5s; }
+    .stagger-6 { transition-delay: 0.6s; }
+    .img-zoom { overflow: hidden; }
+    .img-zoom img { transition: transform 0.6s ease-out; }
+    .img-zoom:hover img { transform: scale(1.08); }
+    .hero-parallax { will-change: transform; }
+    .card-3d { transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; }
+    .card-3d:hover { transform: translateY(-8px); }
+    .btn-glow { position: relative; overflow: hidden; }
+    .btn-glow::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%); opacity: 0; transition: opacity 0.3s ease; }
+    .btn-glow:hover::after { opacity: 1; }
+    .underline-grow { position: relative; }
+    .underline-grow::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: #DC2626; transition: width 0.3s ease; }
+    .underline-grow:hover::after { width: 100%; }
+  </style>
+</head>
+<body class="bg-bg font-body text-text antialiased">
+
+  <!-- Navbar -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm animate-slide-down" role="navigation" aria-label="Main navigation">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        <a href="#" class="font-heading text-xl sm:text-2xl text-primary tracking-wide">The Olive Kitchen</a>
+        <button id="mobile-menu-btn" class="md:hidden cursor-pointer p-2 rounded-lg hover:bg-bg transition-colors duration-200" aria-label="Toggle menu" aria-expanded="false">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#menu" class="underline-grow text-text-light hover:text-primary transition-colors duration-200 cursor-pointer font-medium">Menu</a>
+          <a href="#about" class="underline-grow text-text-light hover:text-primary transition-colors duration-200 cursor-pointer font-medium">About</a>
+          <a href="#gallery" class="underline-grow text-text-light hover:text-primary transition-colors duration-200 cursor-pointer font-medium">Gallery</a>
+          <a href="#testimonials" class="underline-grow text-text-light hover:text-primary transition-colors duration-200 cursor-pointer font-medium">Reviews</a>
+          <a href="#reservation" class="btn-glow inline-flex items-center px-6 py-2.5 bg-cta text-white font-semibold rounded-lg hover:bg-cta-hover hover:shadow-lg hover:shadow-cta/25 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cta focus:ring-offset-2">Reserve a Table</a>
+        </div>
+      </div>
+      <div id="mobile-menu" class="hidden md:hidden pb-4">
+        <div class="flex flex-col gap-3">
+          <a href="#menu" class="text-text-light hover:text-primary transition-colors duration-200 cursor-pointer py-2 font-medium">Menu</a>
+          <a href="#about" class="text-text-light hover:text-primary transition-colors duration-200 cursor-pointer py-2 font-medium">About</a>
+          <a href="#gallery" class="text-text-light hover:text-primary transition-colors duration-200 cursor-pointer py-2 font-medium">Gallery</a>
+          <a href="#testimonials" class="text-text-light hover:text-primary transition-colors duration-200 cursor-pointer py-2 font-medium">Reviews</a>
+          <a href="#reservation" class="inline-flex items-center justify-center px-6 py-2.5 bg-cta text-white font-semibold rounded-lg hover:bg-cta-hover transition-colors duration-200 cursor-pointer">Reserve a Table</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0">
+      <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920&q=80" alt="Restaurant interior" class="w-full h-full object-cover hero-parallax">
+      <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80"></div>
+    </div>
+    <div class="absolute inset-0 opacity-20">
+      <div class="absolute top-20 left-10 w-72 h-72 bg-primary rounded-full blur-3xl animate-float"></div>
+      <div class="absolute bottom-20 right-10 w-96 h-96 bg-cta rounded-full blur-3xl animate-float" style="animation-delay: 1.5s;"></div>
+    </div>
+    <div class="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto">
+      <p class="text-cta font-body font-semibold tracking-[0.3em] uppercase text-sm sm:text-base mb-4 animate-fade-in" style="animation-delay: 0.2s;">Est. 2018 — Fine Dining</p>
+      <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white mb-6 leading-tight animate-fade-in-up" style="animation-delay: 0.4s;">The Olive Kitchen</h1>
+      <p class="text-white/80 text-lg sm:text-xl md:text-2xl font-light max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in-up" style="animation-delay: 0.6s;">Where every dish tells a story. Authentic flavors, handcrafted with passion from the finest ingredients.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style="animation-delay: 0.8s;">
+        <a href="#reservation" class="btn-glow inline-flex items-center justify-center px-8 py-4 bg-cta text-white font-bold text-lg rounded-lg hover:bg-cta-hover hover:shadow-xl hover:shadow-cta/30 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cta focus:ring-offset-2 focus:ring-offset-black">
+          Reserve a Table
+          <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+        <a href="#menu" class="inline-flex items-center justify-center px-8 py-4 border-2 border-white/30 text-white font-semibold text-lg rounded-lg hover:bg-white/10 hover:border-white/60 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black">View Our Menu</a>
+      </div>
+    </div>
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <svg class="w-6 h-6 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-20 sm:py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div class="animate-on-scroll from-left">
+          <p class="text-cta font-semibold tracking-[0.2em] uppercase text-sm mb-3">Our Story</p>
+          <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl text-text mb-6">A Passion for Authentic Flavors</h2>
+          <p class="text-text-light text-lg leading-relaxed mb-6">Founded in 2018 by Chef Arjun Mehta, The Olive Kitchen was born from a simple belief: great food brings people together. Every dish on our menu is crafted using locally sourced ingredients and time-honored recipes passed down through generations.</p>
+          <p class="text-text-light text-lg leading-relaxed mb-8">From our wood-fired oven to our herb garden, every detail is designed to deliver an unforgettable dining experience. We don't just serve food — we create memories.</p>
+          <div class="flex gap-8">
+            <div>
+              <p class="font-heading text-3xl sm:text-4xl text-primary counter" data-target="7">0</p>
+              <p class="text-text-light font-medium">Years of Excellence</p>
+            </div>
+            <div>
+              <p class="font-heading text-3xl sm:text-4xl text-primary counter" data-target="50">0</p>
+              <p class="text-text-light font-medium">Thousand Diners</p>
+            </div>
+            <div>
+              <p class="font-heading text-3xl sm:text-4xl text-primary">4.8</p>
+              <p class="text-text-light font-medium">Star Rating</p>
+            </div>
+          </div>
+        </div>
+        <div class="relative animate-on-scroll from-right">
+          <div class="img-zoom aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
+            <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&q=80" alt="Chef preparing a dish" class="w-full h-full object-cover">
+          </div>
+          <div class="absolute -bottom-4 -left-4 w-24 h-24 bg-cta rounded-xl flex items-center justify-center shadow-lg animate-float">
+            <div class="text-center">
+              <p class="font-heading text-xl text-white">Since</p>
+              <p class="font-heading text-2xl text-white">2018</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section id="menu" class="py-20 sm:py-28 bg-bg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 animate-on-scroll">
+        <p class="text-cta font-semibold tracking-[0.2em] uppercase text-sm mb-3">Curated Selection</p>
+        <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl text-text mb-4">Our Signature Dishes</h2>
+        <p class="text-text-light text-lg max-w-2xl mx-auto">Each dish is a masterpiece, crafted with the finest ingredients and plated with artistic precision.</p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div class="animate-on-scroll stagger-1 card-3d bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 group">
+          <div class="img-zoom aspect-[4/3]">
+            <img src="https://images.unsplash.com/photo-1633964913295-ceb43826e7c1?w=600&q=80" alt="Truffle Risotto" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-heading text-xl text-text group-hover:text-primary transition-colors duration-300">Truffle Risotto</h3>
+              <span class="text-cta font-bold text-lg">₹850</span>
+            </div>
+            <p class="text-text-light leading-relaxed">Arborio rice slow-cooked with black truffle, aged parmesan, and a touch of white wine reduction.</p>
+          </div>
+        </div>
+        <div class="animate-on-scroll stagger-2 card-3d bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 group">
+          <div class="img-zoom aspect-[4/3]">
+            <img src="https://images.unsplash.com/photo-1574484284002-952d92456975?w=600&q=80" alt="Lamb Shank Tagine" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-heading text-xl text-text group-hover:text-primary transition-colors duration-300">Lamb Shank Tagine</h3>
+              <span class="text-cta font-bold text-lg">₹1,200</span>
+            </div>
+            <p class="text-text-light leading-relaxed">Slow-braised lamb shank with apricots, almonds, and aromatic Moroccan spices served with couscous.</p>
+          </div>
+        </div>
+        <div class="animate-on-scroll stagger-3 card-3d bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 group">
+          <div class="img-zoom aspect-[4/3]">
+            <img src="https://images.unsplash.com/photo-1534604973900-c43ab4c2e0ab?w=600&q=80" alt="Grilled Sea Bass" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-heading text-xl text-text group-hover:text-primary transition-colors duration-300">Grilled Sea Bass</h3>
+              <span class="text-cta font-bold text-lg">₹1,450</span>
+            </div>
+            <p class="text-text-light leading-relaxed">Fresh sea bass grilled to perfection, served with herb butter, roasted vegetables, and lemon caper sauce.</p>
+          </div>
+        </div>
+        <div class="animate-on-scroll stagger-4 card-3d bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 group">
+          <div class="img-zoom aspect-[4/3]">
+            <img src="https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=600&q=80" alt="Paneer Tikka Platter" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-heading text-xl text-text group-hover:text-primary transition-colors duration-300">Paneer Tikka Platter</h3>
+              <span class="text-cta font-bold text-lg">₹650</span>
+            </div>
+            <p class="text-text-light leading-relaxed">Smoky tandoor-grilled paneer with bell peppers, onions, mint chutney, and fresh naan bread.</p>
+          </div>
+        </div>
+        <div class="animate-on-scroll stagger-5 card-3d bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 group">
+          <div class="img-zoom aspect-[4/3]">
+            <img src="https://images.unsplash.com/photo-1556761223-4c4282c73f77?w=600&q=80" alt="Wild Mushroom Pasta" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-heading text-xl text-text group-hover:text-primary transition-colors duration-300">Wild Mushroom Pasta</h3>
+              <span class="text-cta font-bold text-lg">₹750</span>
+            </div>
+            <p class="text-text-light leading-relaxed">Hand-rolled pappardelle with wild mushroom medley, garlic cream sauce, and fresh herbs.</p>
+          </div>
+        </div>
+        <div class="animate-on-scroll stagger-6 card-3d bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 group">
+          <div class="img-zoom aspect-[4/3]">
+            <img src="https://images.unsplash.com/photo-1624353365286-3f8d62daad51?w=600&q=80" alt="Chocolate Lava Cake" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-heading text-xl text-text group-hover:text-primary transition-colors duration-300">Chocolate Lava Cake</h3>
+              <span class="text-cta font-bold text-lg">₹450</span>
+            </div>
+            <p class="text-text-light leading-relaxed">Warm Belgian chocolate cake with a molten center, served with vanilla bean ice cream and berry compote.</p>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-12 animate-on-scroll">
+        <a href="#reservation" class="btn-glow inline-flex items-center px-8 py-3.5 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+          View Full Menu
+          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section id="gallery" class="py-20 sm:py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 animate-on-scroll">
+        <p class="text-cta font-semibold tracking-[0.2em] uppercase text-sm mb-3">Visual Experience</p>
+        <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl text-text mb-4">Our Ambiance</h2>
+        <p class="text-text-light text-lg max-w-2xl mx-auto">Step inside and experience the warmth, elegance, and artistry that defines every corner of The Olive Kitchen.</p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-6">
+        <div class="animate-on-scroll stagger-1 img-zoom aspect-square rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-shadow duration-300 cursor-pointer relative group">
+          <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Fine dining interior" class="w-full h-full object-cover" loading="lazy">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+            <p class="text-white font-heading text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">Interior</p>
+          </div>
+        </div>
+        <div class="animate-on-scroll stagger-2 img-zoom aspect-square md:row-span-2 rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-shadow duration-300 cursor-pointer relative group">
+          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80" alt="Signature dish plating" class="w-full h-full object-cover" loading="lazy">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+            <p class="text-white font-heading text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">Signature Dish</p>
+          </div>
+        </div>
+        <div class="animate-on-scroll stagger-3 img-zoom aspect-square rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-shadow duration-300 cursor-pointer relative group">
+          <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=600&q=80" alt="Bar area" class="w-full h-full object-cover" loading="lazy">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+            <p class="text-white font-heading text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">Bar Area</p>
+          </div>
+        </div>
+        <div class="animate-on-scroll stagger-4 img-zoom aspect-square rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-shadow duration-300 cursor-pointer relative group">
+          <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=600&q=80" alt="Kitchen action" class="w-full h-full object-cover" loading="lazy">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+            <p class="text-white font-heading text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">Kitchen</p>
+          </div>
+        </div>
+        <div class="animate-on-scroll stagger-5 img-zoom aspect-square rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-shadow duration-300 cursor-pointer relative group">
+          <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=600&q=80" alt="Dessert plating" class="w-full h-full object-cover" loading="lazy">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+            <p class="text-white font-heading text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">Desserts</p>
+          </div>
+        </div>
+        <div class="animate-on-scroll stagger-6 img-zoom aspect-square rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-shadow duration-300 cursor-pointer relative group">
+          <img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?w=600&q=80" alt="Outdoor seating" class="w-full h-full object-cover" loading="lazy">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+            <p class="text-white font-heading text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">Outdoor Seating</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="py-20 sm:py-28 bg-bg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 animate-on-scroll">
+        <p class="text-cta font-semibold tracking-[0.2em] uppercase text-sm mb-3">What People Say</p>
+        <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl text-text mb-4">Guest Reviews</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+        <div class="animate-on-scroll stagger-1 card-3d bg-white rounded-2xl p-8 shadow-sm hover:shadow-2xl transition-all duration-300 border-t-4 border-transparent hover:border-cta">
+          <div class="flex gap-1 mb-4">
+            <svg class="w-5 h-5 text-cta" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 text-cta" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 text-cta" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 text-cta" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 text-cta" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          </div>
+          <p class="text-text-light leading-relaxed mb-6">"Absolutely phenomenal dining experience. The truffle risotto was the best I've ever had. The ambiance, the service, everything was perfect."</p>
+          <div class="flex items-center gap-3">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" alt="Priya Sharma" class="w-10 h-10 rounded-full object-cover" loading="lazy">
+            <div>
+              <p class="font-semibold text-text">Priya Sharma</p>
+              <p class="text-text-light text-sm">Food Blogger</p>
+            </div>
+          </div>
+        </div>
+        <div class="animate-on-scroll stagger-2 card-3d bg-white rounded-2xl p-8 shadow-sm hover:shadow-2xl transition-all duration-300 border-t-4 border-transparent hover:border-cta">
+          <div class="flex gap-1 mb-4">
+            <svg class="w-5 h-5 text-cta" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 text-cta" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 text-cta" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 text-cta" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 text-cta" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          </div>
+          <p class="text-text-light leading-relaxed mb-6">"We celebrated our anniversary here and it was magical. The lamb shank tagine was outstanding and the staff made us feel so special. Will definitely return."</p>
+          <div class="flex items-center gap-3">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Rahul Kapoor" class="w-10 h-10 rounded-full object-cover" loading="lazy">
+            <div>
+              <p class="font-semibold text-text">Rahul Kapoor</p>
+              <p class="text-text-light text-sm">Regular Guest</p>
+            </div>
+          </div>
+        </div>
+        <div class="animate-on-scroll stagger-3 card-3d bg-white rounded-2xl p-8 shadow-sm hover:shadow-2xl transition-all duration-300 border-t-4 border-transparent hover:border-cta">
+          <div class="flex gap-1 mb-4">
+            <svg class="w-5 h-5 text-cta" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 text-cta" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 text-cta" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 text-cta" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-5 h-5 text-cta" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          </div>
+          <p class="text-text-light leading-relaxed mb-6">"Best fine dining in the city, hands down. The chocolate lava cake alone is worth the visit. The chef truly knows his craft. A must-visit!"</p>
+          <div class="flex items-center gap-3">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80" alt="Ananya Desai" class="w-10 h-10 rounded-full object-cover" loading="lazy">
+            <div>
+              <p class="font-semibold text-text">Ananya Desai</p>
+              <p class="text-text-light text-sm">Google Review</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reservation Section -->
+  <section id="reservation" class="py-20 sm:py-28 relative overflow-hidden">
+    <div class="absolute inset-0">
+      <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1920&q=80" alt="Restaurant table setting" class="w-full h-full object-cover">
+      <div class="absolute inset-0 bg-gradient-to-br from-[#450A0A]/90 via-[#7C2D12]/85 to-[#450A0A]/90"></div>
+    </div>
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-10 right-20 w-64 h-64 bg-cta rounded-full blur-3xl animate-float"></div>
+      <div class="absolute bottom-10 left-20 w-48 h-48 bg-primary rounded-full blur-3xl animate-float" style="animation-delay: 1.5s;"></div>
+    </div>
+    <div class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12 animate-on-scroll">
+        <p class="text-cta font-semibold tracking-[0.2em] uppercase text-sm mb-3">Book Your Experience</p>
+        <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl text-white mb-4">Reserve a Table</h2>
+        <p class="text-white/70 text-lg">Secure your spot for an unforgettable dining experience.</p>
+      </div>
+      <form class="animate-on-scroll from-scale bg-white/10 backdrop-blur-md rounded-2xl p-8 sm:p-10 border border-white/10 hover:border-white/20 transition-colors duration-300">
+        <div class="grid sm:grid-cols-2 gap-6">
+          <div>
+            <label for="name" class="block text-white/80 font-medium mb-2 text-sm">Full Name</label>
+            <input type="text" id="name" placeholder="John Doe" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-cta focus:border-transparent hover:border-white/30 transition-all duration-200">
+          </div>
+          <div>
+            <label for="phone" class="block text-white/80 font-medium mb-2 text-sm">Phone Number</label>
+            <input type="tel" id="phone" placeholder="+91 98765 43210" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-cta focus:border-transparent hover:border-white/30 transition-all duration-200">
+          </div>
+          <div>
+            <label for="date" class="block text-white/80 font-medium mb-2 text-sm">Date</label>
+            <input type="date" id="date" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cta focus:border-transparent hover:border-white/30 transition-all duration-200">
+          </div>
+          <div>
+            <label for="time" class="block text-white/80 font-medium mb-2 text-sm">Time</label>
+            <select id="time" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cta focus:border-transparent cursor-pointer hover:border-white/30 transition-all duration-200">
+              <option value="" class="text-text">Select time</option>
+              <option value="12:00" class="text-text">12:00 PM</option>
+              <option value="13:00" class="text-text">1:00 PM</option>
+              <option value="14:00" class="text-text">2:00 PM</option>
+              <option value="18:00" class="text-text">6:00 PM</option>
+              <option value="19:00" class="text-text">7:00 PM</option>
+              <option value="20:00" class="text-text">8:00 PM</option>
+              <option value="21:00" class="text-text">9:00 PM</option>
+            </select>
+          </div>
+          <div>
+            <label for="guests" class="block text-white/80 font-medium mb-2 text-sm">Number of Guests</label>
+            <select id="guests" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cta focus:border-transparent cursor-pointer hover:border-white/30 transition-all duration-200">
+              <option value="2" class="text-text">2 Guests</option>
+              <option value="3" class="text-text">3 Guests</option>
+              <option value="4" class="text-text">4 Guests</option>
+              <option value="5" class="text-text">5 Guests</option>
+              <option value="6" class="text-text">6+ Guests</option>
+            </select>
+          </div>
+          <div>
+            <label for="occasion" class="block text-white/80 font-medium mb-2 text-sm">Occasion (Optional)</label>
+            <select id="occasion" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cta focus:border-transparent cursor-pointer hover:border-white/30 transition-all duration-200">
+              <option value="" class="text-text">Select occasion</option>
+              <option value="birthday" class="text-text">Birthday</option>
+              <option value="anniversary" class="text-text">Anniversary</option>
+              <option value="date" class="text-text">Date Night</option>
+              <option value="business" class="text-text">Business Dinner</option>
+            </select>
+          </div>
+        </div>
+        <div class="mt-6">
+          <label for="message" class="block text-white/80 font-medium mb-2 text-sm">Special Requests</label>
+          <textarea id="message" rows="3" placeholder="Any dietary restrictions or special arrangements..." class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-cta focus:border-transparent hover:border-white/30 transition-all duration-200 resize-none"></textarea>
+        </div>
+        <button type="submit" class="btn-glow w-full mt-8 px-8 py-4 bg-cta text-white font-bold text-lg rounded-lg hover:bg-cta-hover hover:shadow-xl hover:shadow-cta/30 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cta focus:ring-offset-2 focus:ring-offset-[#450A0A]">
+          Confirm Reservation
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-[#450A0A] text-white/80 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div>
+          <h3 class="font-heading text-2xl text-white mb-4">The Olive Kitchen</h3>
+          <p class="leading-relaxed text-white/60">Where every dish tells a story. Fine dining with authentic flavors in the heart of the city.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold text-white mb-4">Opening Hours</h4>
+          <div class="space-y-2 text-white/60">
+            <p>Monday - Friday: 12 PM - 11 PM</p>
+            <p>Saturday: 11 AM - 11 PM</p>
+            <p>Sunday: 11 AM - 10 PM</p>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-semibold text-white mb-4">Contact</h4>
+          <div class="space-y-2 text-white/60">
+            <p>123 MG Road, Koramangala</p>
+            <p>Bangalore, Karnataka 560034</p>
+            <p>+91 98765 43210</p>
+            <p>hello@theolivekitchen.com</p>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-semibold text-white mb-4">Follow Us</h4>
+          <div class="flex gap-4">
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-cta hover:scale-110 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cta" aria-label="Instagram">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-cta hover:scale-110 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cta" aria-label="Facebook">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-cta hover:scale-110 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cta" aria-label="Twitter">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="mt-12 pt-8 border-t border-white/10 text-center text-white/40 text-sm">
+        <p>&copy; 2025 The Olive Kitchen. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      menuBtn.setAttribute('aria-expanded', !expanded);
+      mobileMenu.classList.toggle('hidden');
+    });
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+    const parallaxImg = document.querySelector('.hero-parallax');
+    if (parallaxImg) {
+      window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        if (scrolled < window.innerHeight) {
+          parallaxImg.style.transform = `translateY(${scrolled * 0.3}px) scale(1.1)`;
+        }
+      }, { passive: true });
+    }
+
+    const counters = document.querySelectorAll('.counter');
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.dataset.target);
+          let current = 0;
+          const increment = target / 60;
+          const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+              el.textContent = target + (target < 10 ? '+' : 'K+');
+              clearInterval(timer);
+            } else {
+              el.textContent = Math.floor(current) + (target < 10 ? '+' : 'K+');
+            }
+          }, 30);
+          counterObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(c => counterObserver.observe(c));
+  </script>
+</body>
+</html>
